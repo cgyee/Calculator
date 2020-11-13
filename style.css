@@ -3,12 +3,12 @@
     --calculatorwidth: calc(var(--calculatorheight) * .6);
 }
 
-#main-body {
+.main-body {
     height: 100%;
     width: 100%;
 }
 
-#calculator-body {
+.calculator-body {
     position: absolute;
     height: var(--calculatorheight);
     width: var(--calculatorwidth);
@@ -18,19 +18,41 @@
     border: 2px solid aqua;
 }
 
-#calculator-body__interface {
+.calculator-body__interface {
     height: inherit;
     width: inherit;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
-#interface__display {
-    height: 30px;
+
+.interface-display {
+    height: calc(var(--calculatorheight)* .2);
+    width: var(--calculatorwidth);
+}
+
+.interface-display__display {
+    height: 50px;
     width: calc(var(--calculatorwidth) *.75);
     border: 1px solid black;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
-#interface__keys {
+
+.interface-keys {
+    height: calc(var(--calculatorheight)*.8);
+    width: var(--calculatorwidth);
+}
+
+.interface-keys__keys {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4,  1fr);
+    height: calc(var(--calculatorheight) * .6);
+    width: calc(var(--calculatorwidth)* .8);
+    position: relative;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
