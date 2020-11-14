@@ -74,13 +74,14 @@ function addOperatorListener(e) {
    
     //if the term is set assign calculate the total and assign it to the first term
     //and set the second term equal to 0
-    if(term.isSet && secondTerm) {
+    if(!op) {op = e.currentTarget.value;}
+    if(term.isSet && secondTerm!=null) {
         //term.isSet = false;
-        op = e.currentTarget.value;
         total = operator(firstTerm, secondTerm, op);
         firstTerm = total;
-        secondTerm = 0;
+        secondTerm = null;
         console.log(firstTerm);
+        op = e.currentTarget.value;
     }
     
     //if the first term has not been set yet set it
@@ -104,6 +105,7 @@ const equals = document.querySelector('.interface-keys__keys--equals');
 equals.addEventListener('click', e => {
     total= operator(firstTerm, secondTerm, op);
     firstTerm = total;
-    secondTerm = 0;
+    secondTerm = null;
+    op = null;
     console.log("="+firstTerm);
 });

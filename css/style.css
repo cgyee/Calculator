@@ -3,6 +3,22 @@
     --calculatorwidth: calc(var(--calculatorheight) * .6);
 }
 
+@font-face {
+    font-family: buttonStyle;
+    src: url(BigShouldersStencilDisplay-Regular.ttf);
+}
+
+@font-face {
+    font-family: displayStyle;
+    src: url(BigShouldersStencilDisplay-Black.ttf);
+}
+
+button {
+    font-family: buttonStyle;
+    font-size: 20px;
+    
+}
+
 .main-body {
     height: 100%;
     width: 100%;
@@ -31,13 +47,21 @@
 }
 
 .interface-display__display {
-    height: 50px;
-    width: calc(var(--calculatorwidth) *.75);
+    height: calc(var(--calculatorheight)* .1);
+    width: calc(var(--calculatorwidth) *.8);
     border: 1px solid black;
     position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    direction: rtl;
+}
+
+.display__numbers {
+    font-family: displayStyle;
+    font-size: 60px;
 }
 
 .interface-keys {
@@ -55,4 +79,8 @@
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.interface-keys__keys--operator {
+    text-align: right;
 }
