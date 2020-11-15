@@ -1,0 +1,86 @@
+:root {
+    --calculatorheight:700px;
+    --calculatorwidth: calc(var(--calculatorheight) * .6);
+}
+
+@font-face {
+    font-family: buttonStyle;
+    src: url(BigShouldersStencilDisplay-Regular.ttf);
+}
+
+@font-face {
+    font-family: displayStyle;
+    src: url(BigShouldersStencilDisplay-Black.ttf);
+}
+
+button {
+    font-family: buttonStyle;
+    font-size: 20px;
+    
+}
+
+.main-body {
+    height: 100%;
+    width: 100%;
+}
+
+.calculator-body {
+    position: absolute;
+    height: var(--calculatorheight);
+    width: var(--calculatorwidth);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid aqua;
+}
+
+.calculator-body__interface {
+    height: inherit;
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+}
+
+.interface-display {
+    height: calc(var(--calculatorheight)* .2);
+    width: var(--calculatorwidth);
+}
+
+.interface-display__display {
+    height: calc(var(--calculatorheight)* .1);
+    width: calc(var(--calculatorwidth) *.8);
+    border: 1px solid black;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    direction: rtl;
+}
+
+.display__numbers {
+    font-family: displayStyle;
+    font-size: 60px;
+}
+
+.interface-keys {
+    height: calc(var(--calculatorheight)*.8);
+    width: var(--calculatorwidth);
+}
+
+.interface-keys__keys {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4,  1fr);
+    height: calc(var(--calculatorheight) * .6);
+    width: calc(var(--calculatorwidth)* .8);
+    position: relative;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.interface-keys__keys--operator {
+    text-align: right;
+}
