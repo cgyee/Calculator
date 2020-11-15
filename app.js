@@ -42,14 +42,20 @@ function operator(a, b, operation) {
 }
 //function to set and "add" tens place to term i.e user selects 9 and 9 again gives 9*10+9=99 
 function setTerm(currentTerm, value) {
-    //term.isSet = true;
-    currentTerm*=10;
-    currentTerm += parseInt(value);
+    value = parseInt(value);
+    if(checkMaxDigits(currentTerm*10+value)) {
+        currentTerm*=10;
+        currentTerm+= value;
+    }
+    else {
+        console.log("Over Max Allowed Digits");
+    }
     console.log(currentTerm);
+    setDisplay(currentTerm);
     return currentTerm;
 }
 
-function addClickListenerToNumberButtons(e) {
+function setTermValues(e) {
     //if user selects a number save that number to the first term if not set
     if(term.isSet) {
         secondTerm = setTerm(secondTerm, e.currentTarget.value);
@@ -66,7 +72,7 @@ function setClickListenerToNumberButtons() {
     let buttons = document.querySelectorAll('.interface-keys__keys--number');
     buttons = Array.from(buttons);
     buttons.forEach(button => {
-        button.addEventListener('click', addClickListenerToNumberButtons);
+        button.addEventListener('click', setTermValues);
     });
 }
 
@@ -76,9 +82,9 @@ function addOperatorListener(e) {
     //and set the second term equal to 0
     if(!op) {op = e.currentTarget.value;}
     if(term.isSet && secondTerm!=null) {
-        //term.isSet = false;
         total = operator(firstTerm, secondTerm, op);
         firstTerm = total;
+        setDisplay(firstTerm);
         secondTerm = null;
         console.log(firstTerm);
         op = e.currentTarget.value;
@@ -97,15 +103,48 @@ function setOperatorListener() {
     Array.from(buttons);
     buttons.forEach(button => {
         button.addEventListener('click', addOperatorListener);
-    })
+    });
+}
+
+function checkMaxDigits(number) {
+    return number <= 10000000 ? true : false;
+}
+
+function setDisplay(number) {
+    const DIGITS_MAX = 9;
+    let number_of_digits = 1;
+    const display = document.querySelector('.interface-display__display');
+    let power = 0;
+    while(display.firstChild) {
+        display.removeChild(display.firstChild);
+    }
+    while(number && number_of_digits < DIGITS_MAX) {
+        const displayNumber = document.createElement('div');
+        const value = number % 10;
+        displayNumber.innerText = value;
+        display.append(displayNumber);
+        number = Math.floor(number/10);
+        number_of_digits+=1;
+    }
 }
 setClickListenerToNumberButtons();
 setOperatorListener();
 const equals = document.querySelector('.interface-keys__keys--equals');
 equals.addEventListener('click', e => {
-    total= operator(firstTerm, secondTerm, op);
-    firstTerm = total;
-    secondTerm = null;
-    op = null;
-    console.log("="+firstTerm);
+    if(firstTerm && secondTerm && op) {
+        total= operator(firstTerm, secondTerm, op);
+        firstTerm = total;
+        setDisplay(firstTerm);
+        secondTerm = null;
+        op = null;
+        console.log("="+firstTerm);
+    }
+
+    else if(firstTerm && op) {
+        setDisplay(firstTerm);
+    }
+
+    else {
+        setDisplay(firstTerm);
+    }
 });
