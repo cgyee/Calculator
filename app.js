@@ -20,7 +20,7 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    return a / b;
+    return b != 0 ? a / b : 0;
 }
 
 function operator(a, b, operation) {
@@ -39,6 +39,7 @@ function operator(a, b, operation) {
     }
 }
 
+
 function convertFromStringToInteger(stringNumber) {
     return parseInt(stringNumber) ? parseInt(stringNumber) : 0;
 }
@@ -51,7 +52,7 @@ function updateTermValue(currentTerm, value) {
         console.log("Over Max Allowed Digits");
     }
     console.log(currentTerm);
-    //setDisplay(currentTerm);
+    setDisplay(currentTerm);
     return currentTerm;
 }
 
@@ -72,7 +73,33 @@ function setTermValues(e) {
     //console.log(e.currentTarget.value);
 }
 
-function setClickListenerToNumberButtons() {
+function setDisplay(number) {
+    const display = document.querySelector('.interface-display__display');
+    while(display.firstChild) {
+        display.removeChild(display.firstChild);
+    }
+    const displayNumber = document.createElement('div');
+    displayNumber.textContent = number;
+    display.appendChild(displayNumber);
+
+}
+
+function clearTermsAndOperator(){
+    firstTerm = "";
+    secondTerm = "";
+    op = "";
+    term.isSet = false;
+}
+
+function addOperatorListener() {
+    let buttons = document.querySelectorAll('.interface-keys__keys--operator');
+    Array.from(buttons);
+    buttons.forEach(button => {
+        button.addEventListener('click', setOperatorListener);
+    });
+}
+
+function addClickListenerNumberButtons() {
     let buttons = document.querySelectorAll('.interface-keys__keys--number');
     buttons = Array.from(buttons);
     buttons.forEach(button => {
@@ -80,19 +107,23 @@ function setClickListenerToNumberButtons() {
     });
 }
 
-function addOperatorListener(e) {
+function setOperatorListener(e) {
    
-    //if the term is set assign calculate the total and assign it to the first term
-    //and set the second term equal to 0
-    if(!op) {op = e.currentTarget.value;}
+    //If the operator is not set set it equal to the current event target
+    if(!op) {
+        op = e.currentTarget.value;
+    }
+    setDisplay(op);
+    //if the term is set and the secondterm is not an empty string, calculate the total and assign it to the first term
+    //and set the second term equal to ""
     if(term.isSet && secondTerm!="") {
 
         firstTerm = operator(convertFromStringToInteger(firstTerm), convertFromStringToInteger(secondTerm), op);
         firstTerm = firstTerm.toString();
-        //setDisplay(firstTerm);
         secondTerm = "";
         console.log(firstTerm);
         op = e.currentTarget.value;
+        setDisplay(firstTerm);
     }
     
     //if the first term has not been set yet set it
@@ -103,34 +134,19 @@ function addOperatorListener(e) {
     
 }
 
-function setOperatorListener() {
-    let buttons = document.querySelectorAll('.interface-keys__keys--operator');
-    Array.from(buttons);
-    buttons.forEach(button => {
-        button.addEventListener('click', addOperatorListener);
-    });
-}
-
-function setDisplay(number) {
-    const display = document.querySelector('.interface-display__display');
-}
-setClickListenerToNumberButtons();
-setOperatorListener();
-const equals = document.querySelector('.interface-keys__keys--equals');
-equals.addEventListener('click', e => {
+function setEqualListener() {
     if(firstTerm && secondTerm && op) {
         firstTerm= operator(convertFromStringToInteger(firstTerm), convertFromStringToInteger(secondTerm), op).toString();
-        //setDisplay(firstTerm);
+        setDisplay(firstTerm);
         secondTerm = "";
         op = "";
         console.log("= "+firstTerm);
     }
-
-    else if(firstTerm && op) {
-        setDisplay(firstTerm);
-    }
-
-    else {
-        setDisplay(firstTerm);
-    }
-});
+}
+function addEqualEventListener() {
+    const equals = document.querySelector('.interface-keys__keys--equals');
+    equals.addEventListener('click', setEqualListener);
+}
+addClickListenerNumberButtons();
+addOperatorListener();
+addEqualEventListener();
