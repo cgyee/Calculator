@@ -20,7 +20,7 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    return b != 0 ? a / b : 0;
+    return b != 0 ? a / b : alert("You can divide by 0"), 0;
 }
 
 function operator(a, b, operation) {
@@ -62,7 +62,7 @@ function checkMaxDigits(stringNumber) {
 
 function setTermValues(e) {
     //if user selects a number save that number to the first term if not set
-    if(firstTerm) {
+    if(term.isSet) {
         secondTerm = updateTermValue(secondTerm, e.currentTarget.value);
     }
 
@@ -79,6 +79,7 @@ function setDisplay(number) {
         display.removeChild(display.firstChild);
     }
     const displayNumber = document.createElement('div');
+    displayNumber.className = "display__numbers";
     displayNumber.textContent = number;
     display.appendChild(displayNumber);
 
@@ -89,22 +90,7 @@ function clearTermsAndOperator(){
     secondTerm = "";
     op = "";
     term.isSet = false;
-}
-
-function addOperatorListener() {
-    let buttons = document.querySelectorAll('.interface-keys__keys--operator');
-    Array.from(buttons);
-    buttons.forEach(button => {
-        button.addEventListener('click', setOperatorListener);
-    });
-}
-
-function addClickListenerNumberButtons() {
-    let buttons = document.querySelectorAll('.interface-keys__keys--number');
-    buttons = Array.from(buttons);
-    buttons.forEach(button => {
-        button.addEventListener('click', setTermValues);
-    });
+    setDisplay(0);
 }
 
 function setOperatorListener(e) {
@@ -143,10 +129,38 @@ function setEqualListener() {
         console.log("= "+firstTerm);
     }
 }
+
+function addOperatorListener() {
+    let buttons = document.querySelectorAll('.interface-keys__keys--operator');
+    Array.from(buttons);
+    buttons.forEach(button => {
+        button.addEventListener('click', setOperatorListener);
+    });
+}
+
+function addClickListenerNumberButtons() {
+    let buttons = document.querySelectorAll('.interface-keys__keys--number');
+    buttons = Array.from(buttons);
+    buttons.forEach(button => {
+        button.addEventListener('click', setTermValues);
+    });
+}
+
 function addEqualEventListener() {
     const equals = document.querySelector('.interface-keys__keys--equals');
     equals.addEventListener('click', setEqualListener);
 }
-addClickListenerNumberButtons();
-addOperatorListener();
-addEqualEventListener();
+
+function addClearButtonListener() {
+    const clear = document.querySelector('.interface-keys__keys--clear');
+    clear.addEventListener('click', clearTermsAndOperator);
+}
+
+function calculatorSetup() {
+    addClickListenerNumberButtons();
+    addOperatorListener();
+    addEqualEventListener();
+    addClearButtonListener();
+}
+
+calculatorSetup();
