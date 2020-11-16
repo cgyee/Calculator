@@ -88,7 +88,7 @@ button:hover {
 .interface-keys__keys {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4,  1fr);
+    grid-template-rows: repeat(5,  1fr);
     column-gap: calc(var(--calculatorwidth)*.01);
     row-gap: calc(var(--calculatorheight)*.01);
     height: calc(var(--calculatorheight) * .6);
@@ -109,4 +109,8 @@ button:hover {
 .interface-keys__keys--number {
     background-color: hsl(0, 16%, 96%);
     color: hsl(0, 58%, 50%);
+}
+
+.interface-keys__keys--equals {
+    grid-column: span 3;
 }
