@@ -5,23 +5,32 @@
 
 @font-face {
     font-family: buttonStyle;
-    src: url(BigShouldersStencilDisplay-Regular.ttf);
+    src: url(TI83.TTF);
 }
 
 @font-face {
     font-family: displayStyle;
-    src: url(BigShouldersStencilDisplay-Black.ttf);
+    src: url(digital-7.ttf);
 }
 
 button {
     font-family: buttonStyle;
-    font-size: 20px;
+    font-size: calc(var(--calculatorheight)*.07);
+    border: 1px;
+    border-radius: 10px;
+    background-color: hsl(0, 58%, 50%);
+    color: hsl(0, 0%, 97%);
+    box-shadow: 1px 1px 1px black, -1px -1px 1px black;
     
+}
+button:hover {
+    transform: scale(1.1);
 }
 
 .main-body {
     height: 100%;
     width: 100%;
+    background-image: url(school.png);
 }
 
 .calculator-body {
@@ -31,7 +40,10 @@ button {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: 2px solid aqua;
+    border: 1px solid hsl(232, 43%, 45%);
+    background-color: hsl(232, 43%, 45%);
+    border-radius: 5%;
+    box-shadow: -3px 3px 10px 3px black;
 }
 
 .calculator-body__interface {
@@ -49,19 +61,24 @@ button {
 .interface-display__display {
     height: calc(var(--calculatorheight)* .1);
     width: calc(var(--calculatorwidth) *.8);
-    border: 1px solid black;
+    border: 1px solid hsl(232, 43%, 45%);
+    border-radius: 5px;
+    background-color: hsl(35, 20%, 70%);
+    box-shadow: 1px 1px 1px black, -1px -1px 1px black;
     position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: grid;
-    grid-template-columns: repeat(9, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     direction: rtl;
 }
 
 .display__numbers {
     font-family: displayStyle;
-    font-size: 60px;
+    font-size: calc(var(--calculatorheight)*.08);
+    margin-top: 4%;
+    margin-right: 3%;
 }
 
 .interface-keys {
@@ -72,7 +89,9 @@ button {
 .interface-keys__keys {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4,  1fr);
+    grid-template-rows: repeat(5,  1fr);
+    column-gap: calc(var(--calculatorwidth)*.01);
+    row-gap: calc(var(--calculatorheight)*.01);
     height: calc(var(--calculatorheight) * .6);
     width: calc(var(--calculatorwidth)* .8);
     position: relative;
@@ -83,4 +102,20 @@ button {
 
 .interface-keys__keys--operator {
     text-align: right;
+    padding-right: 20%;
+    background-color: hsl(0, 58%, 50%);
+    color: hsl(0, 0%, 97%);
+}
+
+.interface-keys__keys--number {
+    background-color: hsl(0, 16%, 96%);
+    color: hsl(0, 58%, 50%);
+}
+
+.interface-keys__keys--equals {
+    grid-column: span 3;
+}
+
+.interface-keys__keys--del {
+    font-size: calc(var(--calculatorheight)*.05);
 }
