@@ -114,3 +114,7 @@ button:hover {
 .interface-keys__keys--equals {
     grid-column: span 3;
 }
+
+.interface-keys__keys--del {
+    font-size: calc(var(--calculatorheight)*.05);
+}

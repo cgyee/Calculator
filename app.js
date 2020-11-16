@@ -130,6 +130,24 @@ function setEqualListener() {
     }
 }
 
+function removeLastAction() {
+    if(firstTerm && secondTerm && op) {
+        secondTerm = "";
+        setDisplay(0);
+    }
+
+    else if(firstTerm && op && !secondTerm) {
+        op = "";
+        setDisplay("");
+    }
+
+    else {
+        firstTerm = "";
+        setDisplay(0);
+    }
+
+}
+
 function addOperatorListener() {
     let buttons = document.querySelectorAll('.interface-keys__keys--operator');
     Array.from(buttons);
@@ -156,11 +174,17 @@ function addClearButtonListener() {
     clear.addEventListener('click', clearTermsAndOperator);
 }
 
+function addDeleteListener() {
+    const del = document.querySelector('.interface-keys__keys--del');
+    del.addEventListener('click', removeLastAction);
+}
+
 function calculatorSetup() {
     addClickListenerNumberButtons();
     addOperatorListener();
     addEqualEventListener();
     addClearButtonListener();
+    addDeleteListener();
 }
 
 calculatorSetup();
